@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { HeroHeader } from "@/components/header";
-import { ThemeProvider } from "@/components/theme-provider";
+import  HeroHeader from "@/components/header";
+import  ThemeProvider  from "@/components/theme-provider";
+import FooterSection from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,9 +37,10 @@ export default function RootLayout({
             disableTransitionOnChange
           >
         <HeroHeader/>
-        <main className='min-h-[calc(100vh-64px)] max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-8 '>
+        <main className=' min-h-[calc(100vh-64px)] max-w-7xl mx-auto px-6 lg:px-12 pt-16  '>
           {children}
         </main>
+        <FooterSection/>
         </ThemeProvider>
       </body>
     </html>

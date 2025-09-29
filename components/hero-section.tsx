@@ -6,9 +6,9 @@ import { ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 
 
-export default function HeroSection() {
+const HeroSection=()=> {
   return (
-    <main className='overflow-hidden min-h-[400px] lg:min-h-[500px]  relative rounded-xl'>
+    <main className='w-full overflow-hidden min-h-[400px] lg:min-h-[500px]  relative rounded-xl '>
       <div
         aria-hidden
         className='absolute inset-0 isolate hidden opacity-65 contain-strict lg:block '
@@ -108,7 +108,7 @@ export default function HeroSection() {
                     size='lg'
                     className='rounded-xl px-5 text-base bg-accent text-accent-foreground hover:bg-accent/90 '
                   >
-                    <Link href='/jobs'>
+                    <Link href='/menu'>
                       <span className='text-nowrap space-x-2 flex items-center'>View Menu<ChevronRight /></span>
                     </Link>
                   </Button>
@@ -117,7 +117,7 @@ export default function HeroSection() {
                     size='lg'
                     className='rounded-xl px-5 text-base '
                   >
-                    <Link href='/jobs'>
+                    <Link href='/menu'>
                       <span className='text-nowrap'>Make Reservation</span>
                     </Link>
                   </Button>
@@ -138,3 +138,4 @@ export default function HeroSection() {
     </main>
   )
 }
+export default HeroSection

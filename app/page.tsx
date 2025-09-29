@@ -1,10 +1,14 @@
+import Features from '@/components/features-2'
 import HeroSection from '@/components/hero-section'
+import SignatureDishes from '@/components/signature-dishes'
 import React from 'react'
 
 const Home = () => {
   return (
-    <div>
+    <div className=' flex flex-col items-center justify-center gap-8 '>
       <HeroSection/>
+      <SignatureDishes/>
+      <Features/>
     </div>
   )
 }
