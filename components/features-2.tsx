@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 const Features=()=> {
     return (
         <section className="w-full py-4 md:py-8">
-            <div className="@container mx-auto max-w-5xl px-6">
+            <div className="@container mx-auto max-w-7xl px-6">
                 <div className="text-center">
                     <h2 className="text-balance text-xl font-semibold lg:text-2xl">Our services</h2>
                       <p>We provide our services reliably and on time</p>
