@@ -5,8 +5,7 @@ import { AnimatedGroup } from '@/components/ui/animated-group'
 import { ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 
-
-const HeroSection=()=> {
+const HeroSection = () => {
   return (
     <main className='w-full overflow-hidden min-h-[400px] lg:min-h-[500px]  relative rounded-xl '>
       <div
@@ -47,8 +46,7 @@ const HeroSection=()=> {
             className='absolute inset-0 -z-20'
           >
             {/* No children needed here, so just an empty fragment */}
-            <>
-            </>
+            <></>
           </AnimatedGroup>
           <div className='absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)] '></div>
           <div className='mx-auto max-w-7xl px-6  min-h-[400px] lg:min-h-[500px] flex flex-col items-center justify-center '>
@@ -69,7 +67,8 @@ const HeroSection=()=> {
                 as='p'
                 className='mx-auto mt-8 max-w-[550px] font-bold text-xl text-primary text-shadow-2xl '
               >
-                Experience the finest culinary creations made with locally-sourced ingredients and passion.
+                Experience the finest culinary creations made with
+                locally-sourced ingredients and passion.
               </TextEffect>
 
               <AnimatedGroup
@@ -109,7 +108,10 @@ const HeroSection=()=> {
                     className='rounded-xl px-5 text-base bg-accent text-accent-foreground hover:bg-accent/90 '
                   >
                     <Link href='/menu'>
-                      <span className='text-nowrap space-x-2 flex items-center'>View Menu<ChevronRight /></span>
+                      <span className='text-nowrap space-x-2 flex items-center'>
+                        View Menu
+                        <ChevronRight />
+                      </span>
                     </Link>
                   </Button>
                   <Button
@@ -125,12 +127,16 @@ const HeroSection=()=> {
               </AnimatedGroup>
             </div>
           </div>
-
-          
         </div>
       </section>
       <div className='absolute inset-0 -z-10 size-full '>
-        <Image src='/hero-bg.jpg' alt='hero' layout='fill' objectFit='cover' />
+        <Image
+          src='/hero-bg.jpg'
+          alt='hero'
+          layout='fill'
+           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          objectFit='cover'
+        />
       </div>
       <div className='absolute inset-0 -z-10 size-full '>
         <div className='absolute inset-0 bg-black/50 '></div>

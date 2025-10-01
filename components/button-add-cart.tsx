@@ -38,7 +38,7 @@ const ButtonAddCart = ({
         router.push('/menu')
       }}
       aria-label='Add to cart'
-      className='flex items-center gap-2 cursor-pointer bg-green-500'
+      className='flex items-center gap-2 cursor-pointer '
       
     > <Plus/>
       Add  cart

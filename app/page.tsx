@@ -1,6 +1,7 @@
 import Features from '@/components/features-2'
 import HeroSection from '@/components/hero-section'
 import SignatureDishes from '@/components/signature-dishes'
+import Testimonial from '@/components/testimonials'
 import React from 'react'
 
 const Home = () => {
@@ -9,6 +10,7 @@ const Home = () => {
       <HeroSection/>
       <SignatureDishes/>
       <Features/>
+      <Testimonial/>
     </div>
   )
 }
