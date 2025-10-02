@@ -133,9 +133,9 @@ const HeroSection = () => {
         <Image
           src='/hero-bg.jpg'
           alt='hero'
-          layout='fill'
+          fill
            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          objectFit='cover'
+          className='object-cover object-center  brightness-75 '
         />
       </div>
       <div className='absolute inset-0 -z-10 size-full '>
