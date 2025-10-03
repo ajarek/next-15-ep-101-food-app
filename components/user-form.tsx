@@ -11,9 +11,9 @@ import { createUser } from "@/lib/actions";
 
 export default function UserForm() {
   const [email, setEmail] = useState('');
-  const [username, setUserName] = useState('');
-  const [password, setPassword] = useState('defaultPassword123');
-  const [img, setImg] = useState('');
+  const [username, setUserName] = useState('John Doe');
+  const [password, setPassword] = useState('');
+  const [img, setImg] = useState('https://github.com/shadcn.png');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   
@@ -25,11 +25,13 @@ export default function UserForm() {
     
     setLoading(true);
     try {
-      await createUser({ email, username, password: 'defaultPassword123', isAdmin: false , img: ''});
-      
+      await createUser({ email, username, password, isAdmin: false, img });
+      console.log(img)
       // Reset form
       setEmail('');
       setUserName('');
+      setPassword('');
+      setImg('');
       
       toast.success("User created successfully");
       
@@ -45,15 +47,15 @@ export default function UserForm() {
   };
   
   return (
-    <Card className="w-full max-w-3xl shadow-sm bg-white overflow-hidden border-0 pt-0 ">
-      <CardHeader className="bg-blue-50 border-b px-6 py-5 rounded-none">
-        <CardTitle className="text-xl text-blue-900">Add New User</CardTitle>
+    <Card className="w-full max-w-3xl shadow-sm  overflow-hidden border-0 pt-0 ">
+      <CardHeader className=" border-b px-6 py-5 rounded-none">
+        <CardTitle className="text-xl ">Add New User</CardTitle>
       </CardHeader>
       <CardContent className="p-6">
         <div className="space-y-6">
           <div>
-            <Label htmlFor="email" className="text-sm font-medium text-gray-700 mb-1.5 block">
-              Email <span className="text-red-500">*</span>
+            <Label htmlFor="email" className="text-sm font-medium  mb-1.5 block">
+              Email <span className="">*</span>
             </Label>
             <Input 
               id="email"
@@ -62,24 +64,24 @@ export default function UserForm() {
               onChange={(e) => setEmail(e.target.value)} 
               type="email"
               required
-              className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+              className="h-11 "
             />
           </div>
 
           <div>
-            <Label htmlFor="username" className="text-sm font-medium text-gray-700 mb-1.5 block">
-              Name
+            <Label htmlFor="username" className="text-sm font-medium  mb-1.5 block">
+              User Name
             </Label>
             <Input 
               id="username"
-              placeholder="John Doe" 
+              placeholder="John Doe (optional)" 
               value={username} 
               onChange={(e) => setUserName(e.target.value)} 
-              className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+              className="h-11"
             />
           </div>
           <div>
-            <Label htmlFor="password" className="text-sm font-medium text-gray-700 mb-1.5 block">
+            <Label htmlFor="password" className="text-sm font-medium mb-1.5 block">
              Password
             </Label>
             <Input 
@@ -87,28 +89,29 @@ export default function UserForm() {
               type="password"
               placeholder="DefaultPassword123" 
               value={password} 
+              required
               onChange={(e) => setPassword(e.target.value)} 
-              className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+              className="h-11 "
             />
           </div>
           <div>
-            <Label htmlFor="img" className="text-sm font-medium text-gray-700 mb-1.5 block">
+            <Label htmlFor="img" className="text-sm font-medium  mb-1.5 block">
               Image URL
             </Label>
             <Input 
               id="img"
               type="text"
-              placeholder="https://example.com/avatar.jpg" 
+              placeholder="https://example.com/avatar.jpg (optional)" 
               value={img} 
               onChange={(e) => setImg(e.target.value)} 
-              className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+              className="h-11 "
             />
           </div>
           
           <Button 
             onClick={handleCreateUser} 
             disabled={loading}
-            className="w-full h-11 mt-2 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-200"
+            className="w-full h-11 mt-2 text-xl "
           >
             {loading ? 'Creating...' : 'Create User'}
           </Button>
