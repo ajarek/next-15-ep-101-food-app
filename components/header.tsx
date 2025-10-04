@@ -7,6 +7,8 @@ import React from 'react'
 import { cn } from '@/lib/utils'
 import ModeToggle from './mode-toggle'
 import { useCartStore } from '@/store/cartStore'
+import { useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 
 const menuItems = [
   { name: 'Menu', href: '/menu' },
@@ -15,9 +17,11 @@ const menuItems = [
 ]
 
 const HeroHeader = () => {
+  const { data: session, status } = useSession()
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
   const { items } = useCartStore()
+
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -25,6 +29,7 @@ const HeroHeader = () => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
   return (
     <header>
       <nav
@@ -60,7 +65,9 @@ const HeroHeader = () => {
 
             <div className='absolute inset-0 m-auto hidden size-fit lg:block'>
               <ul className='flex gap-8 text-sm'>
-                {menuItems.map((item, index) => (
+                {menuItems
+                .filter(item =>  session?.user && session.user.email !== process.env.ADMIN_EMAIL? true : item.name !== 'Admin')
+                .map((item, index) => (
                   <li key={index}>
                     <Link
                       href={item.href}
@@ -89,13 +96,22 @@ const HeroHeader = () => {
                 </ul>
               </div>
               <div className='flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit'>
+                {session?.user ? (
+                   <Button
+                    onClick={() => signOut()}
+                    variant='destructive'
+                  >
+                    Sign Out
+                  </Button>
+                ) : (
+                  <>
                 <Button
                   asChild
                   variant='outline'
                   size='sm'
                   className={cn(isScrolled && 'lg:hidden')}
                 >
-                  <Link href='#'>
+                  <Link href='/login'>
                     <span className='text-muted-foreground hover:text-muted-foreground/80 block duration-150'>
                       Login
                     </span>
@@ -110,7 +126,9 @@ const HeroHeader = () => {
                     <span>Sign Up</span>
                   </Link>
                 </Button>
-
+                </>
+                )}
+                  
                 <Button
                   asChild
                   size='sm'

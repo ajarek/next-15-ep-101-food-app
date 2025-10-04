@@ -5,6 +5,7 @@ import  HeroHeader from "@/components/header";
 import  ThemeProvider  from "@/components/theme-provider";
 import FooterSection from "@/components/footer";
 import { Toaster } from '@/components/ui/sonner'
+import ProvidersSession from '@/components/providers-session'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,12 +38,14 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+             <ProvidersSession>
         <HeroHeader/>
         <main className=' min-h-[calc(100vh-64px)] max-w-7xl mx-auto px-6 lg:px-12 pt-16  '>
           {children}
         </main>
         <FooterSection/>
         <Toaster position="top-right" />
+        </ProvidersSession>
         </ThemeProvider>
       </body>
     </html>

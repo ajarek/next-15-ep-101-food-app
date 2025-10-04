@@ -5,7 +5,7 @@ import GitHub from 'next-auth/providers/github'
 import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
-import {getUsers} from '@/lib/actions'
+import prisma from '@/lib/prisma'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -29,8 +29,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (!credentials?.email || !credentials?.password) {
             throw new Error('Email and password are required.')
           }
-          const users = await getUsers()
-          const user = users.find((user) => user.email === credentials?.email)
+          const users = await prisma.user.findMany({
+            where: { email: credentials.email },
+            select: {
+              id: true,
+              username: true,
+              password: true,
+              email: true,
+              img: true,
+              isAdmin: true,
+            },
+          })
+          const user = users[0] || null
 
           if (!user) {
             console.error(
@@ -59,11 +69,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
 
           return {
-            id: (user as any)._id,
+            id: user.id,
             name: user.username,
             email: user.email,
             img: user.img,
-            isAdmin: (user as any).isAdmin,
+            isAdmin: user.isAdmin,
           }
         } catch (err: any) {
           console.error('Authentication error:', {

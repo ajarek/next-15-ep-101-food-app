@@ -1,8 +1,13 @@
 import React from 'react'
 import { getUsers } from '@/lib/actions'
 import Image from 'next/image'
+import {auth} from '@/app/api/auth/auth'
+import { redirect } from 'next/navigation'
 
 const Admin = async () => {
+  const session = await auth()
+  if (!session?.user?.email || session.user.email !== process.env.ADMIN_EMAIL) {
+    redirect('/')}
   const users = await getUsers()
   return (
     <div className=' flex flex-col items-center justify-center gap-8 '>
