@@ -15,7 +15,7 @@ export default function SignInGoogle() {
         className='w-full cursor-pointer'
       >
         <Image
-          src='/google.png'
+          src='/google-icon.webp'
           alt='Google Logo'
           width={20}
           height={20}

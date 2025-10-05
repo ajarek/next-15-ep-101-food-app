@@ -9,6 +9,7 @@ import ModeToggle from './mode-toggle'
 import { useCartStore } from '@/store/cartStore'
 import { useSession } from 'next-auth/react'
 import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 
 const menuItems = [
   { name: 'Menu', href: '/menu' },
@@ -21,7 +22,7 @@ const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
   const { items } = useCartStore()
-
+ console.log(session)
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -97,12 +98,15 @@ const HeroHeader = () => {
               </div>
               <div className='flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit'>
                 {session?.user ? (
+                  <div className='flex items-center gap-2'>
+                   <Image src={session?.user.img || '/default-user.png'} alt={'user image'} width={40} height={40}  className='rounded-full'/>
                    <Button
                     onClick={() => signOut()}
                     variant='destructive'
                   >
                     Sign Out
                   </Button>
+                  </div>
                 ) : (
                   <>
                 <Button
@@ -126,9 +130,6 @@ const HeroHeader = () => {
                     <span>Sign Up</span>
                   </Link>
                 </Button>
-                </>
-                )}
-                  
                 <Button
                   asChild
                   size='sm'
@@ -138,6 +139,9 @@ const HeroHeader = () => {
                     <span>Get Started</span>
                   </Link>
                 </Button>
+                </>
+                )}
+                  
               </div>
               <Link href='/cart' className='relative flex items-center'>
                 <ShoppingCart />
