@@ -3,7 +3,7 @@ import React from 'react'
 
 const SignUp = () => {
   return (
-    <div className=' flex flex-col items-center justify-center gap-8 pt-4'>
+    <div className=' w-full   flex flex-col items-center mt-4 '>
       <UserForm />
     </div>
   )

@@ -14,7 +14,8 @@ import Image from 'next/image'
 const menuItems = [
   { name: 'Menu', href: '/menu' },
   { name: 'About', href: '/about' },
-  { name: 'Admin', href: '/admin' },
+  { name: 'Contact', href: '/contact' },
+  
 ]
 
 const HeroHeader = () => {
@@ -22,7 +23,7 @@ const HeroHeader = () => {
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
   const { items } = useCartStore()
- console.log(session)
+  
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -64,22 +65,31 @@ const HeroHeader = () => {
               </button>
             </div>
 
-            <div className='absolute inset-0 m-auto hidden size-fit lg:block'>
-              <ul className='flex gap-8 text-sm'>
-                {menuItems
-                .filter(item =>  session?.user && session.user.email !== process.env.ADMIN_EMAIL? true : item.name !== 'Admin')
-                .map((item, index) => (
-                  <li key={index}>
+            <section className='absolute inset-0 m-auto hidden size-fit lg:block'>
+              <div className='flex items-center gap-8 text-sm'>
+                {menuItems                
+                .map((item) => (
+                 
                     <Link
+                      key={item.name}
                       href={item.href}
                       className='text-lg text-muted-foreground hover:text-muted-foreground/80 block duration-150'
                     >
                       <span>{item.name}</span>
                     </Link>
-                  </li>
+                  
                 ))}
-              </ul>
-            </div>
+                { session?.user?.email === 'ajarek@wp.pl' &&
+                <Link
+                     
+                      href={'/admin'}
+                      className='text-lg text-muted-foreground hover:text-muted-foreground/80 block duration-150'
+                    >
+                      <span>{'Admin'}</span>
+                    </Link>
+                }
+              </div>
+            </section>
 
             <div className='bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent'>
               <div className='lg:hidden'>
@@ -98,7 +108,7 @@ const HeroHeader = () => {
               </div>
               <div className='flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit'>
                 {session?.user ? (
-                  <div className='flex items-center gap-2'>
+                  <div className='flex items-center gap-4'>
                    <Image src={session?.user.img || '/default-user.png'} alt={'user image'} width={40} height={40}  className='rounded-full'/>
                    <Button
                     onClick={() => signOut()}

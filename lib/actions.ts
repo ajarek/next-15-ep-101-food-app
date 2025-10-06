@@ -59,6 +59,7 @@ export async function getUsers() {
         email: true,
         username: true,
         img: true,
+        isAdmin: true,
         createdAt: true,
       },
       orderBy: {

@@ -39,6 +39,7 @@ const Admin = async () => {
                 className='rounded-full'
               />
             </p>
+            <p>{user.isAdmin?'role: Admin':'role: User'}</p>
             <p>
               <strong>Created At:</strong>{' '}
               {new Date(user.createdAt).toLocaleString()}
