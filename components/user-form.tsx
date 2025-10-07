@@ -142,7 +142,7 @@ const UserForm = () => {
                   ref={field.ref}
                 />
               </FormControl>
-              <FormDescription>Password must correct.</FormDescription>
+              <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
           )}

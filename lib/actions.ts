@@ -74,4 +74,14 @@ export async function getUsers() {
   }
 }
 
-
+export async function deleteUser(id:string) {
+  try {
+    await prisma.user.delete({
+      where: { id },
+    })
+    revalidatePath('/admin')
+  } catch (error) {
+    console.error('Error deleting user:', error)
+    throw new Error('Failed to delete user')
+  }
+}

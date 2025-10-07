@@ -3,12 +3,18 @@ import { getUsers } from '@/lib/actions'
 import Image from 'next/image'
 import {auth} from '@/app/api/auth/auth'
 import { redirect } from 'next/navigation'
+import ButtonDeleteUser from '@/components/button-delete-user'
+import { apiRecipes } from '@/lib/api-recipes'
+import { Recipe } from '@/types/type-recipe'
+import TableRecipe from '@/components/table-recipe'
+import { Button } from '@/components/ui/button'
 
 const Admin = async () => {
   const session = await auth()
   if (!session?.user?.email || session.user.email !== process.env.ADMIN_EMAIL) {
     redirect('/')}
   const users = await getUsers()
+  const { recipes } = await apiRecipes() as { recipes: Recipe[] }
   return (
     <div className=' flex flex-col items-center justify-center gap-8 '>
       <h1 className='text-2xl font-semibold'>Admin</h1>
@@ -44,8 +50,18 @@ const Admin = async () => {
               <strong>Created At:</strong>{' '}
               {new Date(user.createdAt).toLocaleString()}
             </p>
+            <ButtonDeleteUser id={user.id} />
           </div>
         ))}
+      </div>
+      <div className='w-full flex items-center justify-between'>
+      <h2 className='w-full text-xl text-left font-semibold'>All Recipes:</h2>
+       <Button>Add Recipe</Button>  
+      </div>
+      <div className='w-full flex flex-col gap-4 '>
+        
+          <TableRecipe  recipes={recipes} />
+        
       </div>
     </div>
   )
