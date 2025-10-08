@@ -48,7 +48,7 @@ export default function CartPage() {
                       className="border-b"
                     >
                       <td className="p-2 font-semibold">{item.name}</td>
-                      <td className="p-2">${item.prepTimeMinutes}</td>
+                      <td className="p-2">${item.price}</td>
                       <td className="p-2">{item.quantity ?? 1}</td>
                       <td className="p-2 flex gap-2">
                         <Button size="sm" onClick={() => decrement(item.id)}>-</Button>

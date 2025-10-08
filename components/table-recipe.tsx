@@ -29,8 +29,8 @@ const TableRecipe = ({recipes}:{recipes:Recipe[]}) => {
     <TableRow key={recipe.id}>
       <TableCell className=""><Image src={recipe.image} alt={recipe.name} width={40} height={40} className='rounded-sm'/></TableCell>
       <TableCell className="">{recipe.name} </TableCell>
-      <TableCell className="">{recipe.prepTimeMinutes}</TableCell>
-      <TableCell className="">{recipe.ingredients.slice(0, 2)}...</TableCell>
+      <TableCell className="">{recipe.price}</TableCell>
+      <TableCell className="">{recipe.ingredients}</TableCell>
       <TableCell className=""><Button variant={'secondary'}>Edit</Button></TableCell>
     </TableRow>
     )}

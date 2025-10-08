@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
-import { toast } from "sonner";
+import { toast } from 'sonner'
 
 const formSchema = z.object({
   email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
@@ -28,7 +28,7 @@ const formSchema = z.object({
   isAdmin: z.boolean(),
 })
 
-type UserFormValues = z.infer<typeof formSchema>;
+type UserFormValues = z.infer<typeof formSchema>
 
 const UserForm = () => {
   const form = useForm<UserFormValues>({
@@ -40,12 +40,15 @@ const UserForm = () => {
       img: '',
       isAdmin: false,
     },
-  });
+  })
 
-  const onSubmit: (values: UserFormValues) => Promise<void> = async (values) => {
-    await createUser(values);
-    toast.success("User created successfully");
-  };
+  const onSubmit: (values: UserFormValues) => Promise<void> = async (
+    values
+  ) => {
+    await createUser(values)
+    toast.success('User created successfully')
+    form.reset()
+  }
 
   return (
     <Form {...form}>
@@ -53,7 +56,7 @@ const UserForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='w-full max-w-xl space-y-4 border-2 shadow-xl gap-4 p-4 rounded-xl'
       >
-         <h1 className='text-2xl text-center font-bold'>Create Account</h1>
+        <h1 className='text-2xl text-center font-bold'>Create Account</h1>
         <FormField
           control={form.control}
           name='email'
@@ -131,10 +134,9 @@ const UserForm = () => {
           name='isAdmin'
           render={({ field }) => (
             <FormItem>
-              
               <FormControl>
                 <Input
-                 name='isAdmin'
+                  name='isAdmin'
                   type='hidden'
                   value={String(field.value)}
                   onChange={field.onChange}
@@ -160,7 +162,7 @@ const UserForm = () => {
           href='/login'
           className='text-blue-500'
         >
-           Login
+          Login
         </Link>
       </div>
     </Form>

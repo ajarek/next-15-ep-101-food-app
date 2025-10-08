@@ -8,6 +8,8 @@ import { apiRecipes } from '@/lib/api-recipes'
 import { Recipe } from '@/types/type-recipe'
 import TableRecipe from '@/components/table-recipe'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+import { Plus } from 'lucide-react'
 
 const Admin = async () => {
   const session = await auth()
@@ -18,7 +20,15 @@ const Admin = async () => {
   return (
     <div className=' flex flex-col items-center justify-center gap-8 '>
       <h1 className='text-2xl font-semibold'>Admin</h1>
-       <h2 className='w-full text-xl text-left font-semibold'>Users:</h2>
+      <div className='w-full flex items-center justify-between'>
+      <h2 className='w-full text-xl text-left font-semibold'>Users:</h2>
+      
+       <Button asChild>
+      <Link  href='/signup' className='flex items-center gap-2'>
+        <Plus />Add User
+      </Link>
+        </Button>  
+      </div>
       <div className='w-full max-w-7xl grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
         {users.map((user) => (
           <div
@@ -56,7 +66,12 @@ const Admin = async () => {
       </div>
       <div className='w-full flex items-center justify-between'>
       <h2 className='w-full text-xl text-left font-semibold'>All Recipes:</h2>
-       <Button>Add Recipe</Button>  
+      
+       <Button asChild>
+      <Link  href='/add-recipe' className='flex items-center gap-2'>
+        <Plus />Add Recipe
+      </Link>
+        </Button>  
       </div>
       <div className='w-full flex flex-col gap-4 '>
         

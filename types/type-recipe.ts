@@ -2,7 +2,7 @@ export type Recipe ={
   id:number
   name:string
   image:string
-  ingredients:string[]
-  prepTimeMinutes:number
+  ingredients:string
+  price:number
   quantity?:number
 }

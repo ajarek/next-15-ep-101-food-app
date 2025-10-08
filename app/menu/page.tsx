@@ -8,17 +8,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { apiRecipes } from '@/lib/api-recipes'
+
 import Image from 'next/image'
-import { Recipe } from '@/types/type-recipe'
+
 import FormSearchDist from '@/components/search-dist'
 import ButtonAddCart from '@/components/button-add-cart'
+import { getRecipes } from '@/lib/actions'
 
 const Menu = async({ searchParams,}: {  searchParams: Promise<{ name: string }>}) => {
 
  const { name } = (await searchParams) as { name: string }
 
-   const { recipes } = await apiRecipes() as { recipes: Recipe[] }
+   const  recipes  = await getRecipes() 
 
   return (
     <div className=' flex flex-col items-center justify-center gap-8 pt-4'>
@@ -53,7 +54,7 @@ const Menu = async({ searchParams,}: {  searchParams: Promise<{ name: string }>}
             <CardHeader>
               <div className='relative w-full h-72 rounded-md overflow-hidden'>
                 <Image
-                  src={recipe.image}
+                  src={recipe.image||''}
                   alt='image'
                   fill
                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -65,24 +66,21 @@ const Menu = async({ searchParams,}: {  searchParams: Promise<{ name: string }>}
             <CardContent>
               <CardTitle>{recipe.name}</CardTitle>
               <CardDescription>
-                {recipe.ingredients
-                  .slice(0, 5)
-                .map((ing: string) => (
-                  <div key={ing}>{ing}</div>
-                ))}
+                {recipe.ingredients}
+                  
               </CardDescription>
             </CardContent>
             <CardFooter>
               <div className='w-full flex items-center justify-between'>
                 <p className='text-xl font-semibold'>
-                  $ {recipe.prepTimeMinutes}
+                  $ {+recipe.price}
                 </p>
                  <ButtonAddCart
-                                  id={recipe.id}
+                                  id={+recipe.id}
                                   name={recipe.name}
-                                  image={recipe.image}
+                                  image={recipe.image||''}
                                   ingredients={recipe.ingredients}
-                                  prepTimeMinutes={recipe.prepTimeMinutes}
+                                  price={recipe.price}
                                   quantity={1}
                                 />
               </div>

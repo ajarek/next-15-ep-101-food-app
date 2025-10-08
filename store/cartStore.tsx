@@ -33,7 +33,7 @@ export const useCartStore = create<RecipeState>()(
       removeAllFromCart: () => set({ items: [] }),
 
       total: () =>
-        get().items.reduce((acc, item) => acc + item.prepTimeMinutes * (item.quantity ?? 1), 0),
+        get().items.reduce((acc, item) => acc + item.price * (item.quantity ?? 1), 0),
       removeAll: () => set({ items: [] }),
 
       increment: (id: number) =>

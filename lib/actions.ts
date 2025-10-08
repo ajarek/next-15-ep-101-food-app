@@ -85,3 +85,54 @@ export async function deleteUser(id:string) {
     throw new Error('Failed to delete user')
   }
 }
+
+export async function createRecipe({
+  name,
+  image,
+  price,
+  ingredients,
+}: {
+  name: string
+  image?: string
+  price: number
+  ingredients: string
+}) {
+  if (!name) {
+    throw new Error('Name is required')
+  }
+
+  try {
+    const recipe = await prisma.recipe.create({
+      data: {
+        name,
+        image,
+        price: Number(price),
+        ingredients,
+      },
+    })
+
+    // Revalidate the menu page so new recipe appears
+    revalidatePath('/menu')
+
+    return recipe
+  } catch (error) {
+    console.error('Error creating recipe:', error)
+    throw new Error('Failed to create recipe')
+  }
+}
+
+export async function  getRecipes() {
+  try{
+    const recipes = await prisma.recipe.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
+    return recipes
+  }
+  catch (error) {
+    console.error('Error fetching recipes:', error)
+    throw new Error('Failed to fetch recipes')
+  }
+}
+

@@ -12,7 +12,7 @@ const ButtonAddCart = ({
   name,
   image,
   ingredients,
-  prepTimeMinutes,
+  price,
   quantity
   
 }: Recipe) => {
@@ -30,8 +30,8 @@ const ButtonAddCart = ({
           id,
           name,
           image,
-          ingredients: [ingredients[0], ingredients[1], ingredients[2]],
-          prepTimeMinutes,
+          ingredients,
+          price,
           quantity,
         })
         toast.success('Product added to cart')
