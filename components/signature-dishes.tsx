@@ -56,7 +56,7 @@ const SignatureDishes = async () => {
                   $ {recipe.price}
                 </p>
                 <ButtonAddCart
-                  id={+recipe.id}
+                  id={recipe.id}
                   name={recipe.name}
                   image={recipe.image||''}
                   ingredients={recipe.ingredients}

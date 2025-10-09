@@ -7,11 +7,11 @@ import type { Recipe } from '@/types/type-recipe'
 type RecipeState = {
   items: Recipe[]
   addItemToCart: (item: Recipe) => void
-  removeItemFromCart: (id: number) => void
+  removeItemFromCart: (id: string) => void
   total: () => number
   removeAll: () => void
-  increment: (id: number) => void
-  decrement: (id: number) => void
+  increment: (id: string) => void
+  decrement: (id: string) => void
   removeAllFromCart: () => void
 }
 
@@ -36,34 +36,20 @@ export const useCartStore = create<RecipeState>()(
         get().items.reduce((acc, item) => acc + item.price * (item.quantity ?? 1), 0),
       removeAll: () => set({ items: [] }),
 
-      increment: (id: number) =>
-        get()
-          .items.filter((item) => item.id === id)
-          .map(() =>
-            set((state) => ({
-              items: state.items.map((item) =>
-                item.id === id ? { ...item, quantity: (item.quantity ?? 1) + 1 } : item
-              ),
-            }))
+      increment: (id: string) =>
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.id === id ? { ...item, quantity: (item.quantity ?? 1) + 1 } : item
           ),
-      decrement: (id: number) =>
-        get()
-          .items.filter((item) => item.id === id)
-          .map(() =>
-            set((state) => ({
-              items: state.items.map((item) =>
-                item.id === id
-                  ? {
-                      ...item,
-                      quantity:
-                        item.quantity === 1
-                          ? 1
-                          : (item.quantity ?? 1) - 1,
-                    }
-                  : item
-              ),
-            }))
+        })),
+      decrement: (id: string) =>
+        set((state) => ({
+          items: state.items.map((item) =>
+            item.id === id
+              ? { ...item, quantity: item.quantity && item.quantity > 1 ? item.quantity - 1 : 1 }
+              : item
           ),
+        })),
     }),
 
     { name: 'cartStore', storage: createJSONStorage(() => localStorage) }

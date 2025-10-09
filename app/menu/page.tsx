@@ -76,7 +76,7 @@ const Menu = async({ searchParams,}: {  searchParams: Promise<{ name: string }>}
                   $ {+recipe.price}
                 </p>
                  <ButtonAddCart
-                                  id={+recipe.id}
+                                  id={recipe.id}
                                   name={recipe.name}
                                   image={recipe.image||''}
                                   ingredients={recipe.ingredients}

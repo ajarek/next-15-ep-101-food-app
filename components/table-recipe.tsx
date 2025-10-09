@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -27,7 +26,13 @@ const TableRecipe = ({recipes}:{recipes:Recipe[]}) => {
   <TableBody>
     {recipes.map(recipe=>
     <TableRow key={recipe.id}>
-      <TableCell className=""><Image src={recipe.image} alt={recipe.name} width={40} height={40} className='rounded-sm'/></TableCell>
+      <TableCell className="">{
+        recipe.image ? (
+          <Image src={recipe.image} alt={recipe.name} width={40} height={40} className='rounded-sm'/>
+        ) : (
+          <div className="w-10 h-10 bg-gray-200 rounded-sm flex items-center justify-center text-xs text-gray-600">No image</div>
+        )
+      }</TableCell>
       <TableCell className="">{recipe.name} </TableCell>
       <TableCell className="">{recipe.price}</TableCell>
       <TableCell className="">{recipe.ingredients}</TableCell>

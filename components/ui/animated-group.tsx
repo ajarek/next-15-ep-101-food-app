@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { ReactNode } from 'react';
 import { motion, Variants } from 'motion/react';
@@ -115,14 +116,9 @@ function AnimatedGroup({
   const containerVariants = variants?.container || selectedVariants.container;
   const itemVariants = variants?.item || selectedVariants.item;
 
-  const MotionComponent = React.useMemo(
-    () => motion.create(as as keyof JSX.IntrinsicElements),
-    [as]
-  );
-  const MotionChild = React.useMemo(
-    () => motion.create(asChild as keyof JSX.IntrinsicElements),
-    [asChild]
-  );
+  // motion.create typing can be strict depending on installed types; cast to any to avoid TS errors
+  const MotionComponent = React.useMemo(() => motion.create(as as any), [as]);
+  const MotionChild = React.useMemo(() => motion.create(asChild as any), [asChild]);
 
   return (
     <MotionComponent

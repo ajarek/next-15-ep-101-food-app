@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import Link from 'next/link'
 import { Logo } from '@/components/logo'
@@ -109,7 +110,7 @@ const HeroHeader = () => {
               <div className='flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit'>
                 {session?.user ? (
                   <div className='flex items-center gap-4'>
-                   <Image src={session?.user.img || '/default-user.png'} alt={'user image'} width={40} height={40}  className='rounded-full'/>
+                   <Image src={(session?.user as any)?.img || 'https://github.com/shadcn.png'} alt={'user image'} width={40} height={40}  className='rounded-full'/>
                    <Button
                     onClick={() => signOut()}
                     variant='destructive'

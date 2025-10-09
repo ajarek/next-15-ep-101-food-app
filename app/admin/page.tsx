@@ -4,19 +4,19 @@ import Image from 'next/image'
 import {auth} from '@/app/api/auth/auth'
 import { redirect } from 'next/navigation'
 import ButtonDeleteUser from '@/components/button-delete-user'
-import { apiRecipes } from '@/lib/api-recipes'
-import { Recipe } from '@/types/type-recipe'
+import { getRecipes } from '@/lib/actions'
 import TableRecipe from '@/components/table-recipe'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Plus } from 'lucide-react'
+
 
 const Admin = async () => {
   const session = await auth()
   if (!session?.user?.email || session.user.email !== process.env.ADMIN_EMAIL) {
     redirect('/')}
   const users = await getUsers()
-  const { recipes } = await apiRecipes() as { recipes: Recipe[] }
+ const  recipes  = await getRecipes()
   return (
     <div className=' flex flex-col items-center justify-center gap-8 '>
       <h1 className='text-2xl font-semibold'>Admin</h1>
