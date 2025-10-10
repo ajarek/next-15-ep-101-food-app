@@ -68,6 +68,9 @@ export default function CartPage() {
           </div>
         </div>
       )}
+      <Button asChild className="mt-6 w-full">
+        <Link href="/checkout">Proceed to Checkout</Link>
+      </Button>
     </div>
   )
 }

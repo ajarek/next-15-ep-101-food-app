@@ -4,7 +4,7 @@ import type { Recipe } from '@/types/type-recipe'
 
 
 
-type RecipeState = {
+ type RecipeState = {
   items: Recipe[]
   addItemToCart: (item: Recipe) => void
   removeItemFromCart: (id: string) => void
