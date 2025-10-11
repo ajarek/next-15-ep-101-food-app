@@ -66,11 +66,11 @@ export default function CartPage() {
           <div className="text-right mt-4 text-lg font-bold">
             Total: ${total()} 
           </div>
-        </div>
-      )}
       <Button asChild className="mt-6 w-full">
         <Link href="/checkout">Proceed to Checkout</Link>
       </Button>
+        </div>
+      )}
     </div>
   )
 }

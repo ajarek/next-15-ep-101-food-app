@@ -23,7 +23,7 @@ const HeroHeader = () => {
   const { data: session, status } = useSession()
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
-  const { items } = useCartStore()
+  const { items, removeAll } = useCartStore()
   
   React.useEffect(() => {
     const handleScroll = () => {
@@ -112,7 +112,10 @@ const HeroHeader = () => {
                   <div className='flex items-center gap-4'>
                    <Image src={(session?.user as any)?.img || 'https://github.com/shadcn.png'} alt={'user image'} width={40} height={40}  className='rounded-full'/>
                    <Button
-                    onClick={() => signOut()}
+                    onClick={() => {
+                      signOut()
+                      removeAll()
+                    }}
                     variant='destructive'
                   >
                     Sign Out
