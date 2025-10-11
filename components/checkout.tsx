@@ -271,12 +271,12 @@ const Checkout = () => {
             <CardHeader>
               <CardTitle className='flex items-center gap-2 text-primary'>
                 <CreditCard className='w-5 h-5' />
-                Test Payment Cards
+                My Payment Cards
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className='text-sm text-muted-foreground mb-4'>
-                Use these sample cards for testing the payment system:
+                Select the appropriate card:
               </p>
               <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
                 {sampleCards.map((card, index) => (
@@ -846,13 +846,13 @@ const Checkout = () => {
                 </div>
                 <p className='text-xs text-muted-foreground'>
                   {new Date(
-                    Date.now() + 5 * 24 * 60 * 60 * 1000
+                    Date.now() + 0 * 24 * 60 * 60 * 1000
                   ).toLocaleDateString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
-                  })}
+                  })} within 2 hours.
                 </p>
               </div>
             </CardContent>
