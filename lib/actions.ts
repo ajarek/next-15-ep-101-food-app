@@ -1,6 +1,7 @@
-'use server'
+ 'use server'
 
 import prisma from '@/lib/prisma'
+import { Prisma } from '@/lib/generated/prisma'
 import { revalidatePath } from 'next/cache'
 import bcrypt from 'bcryptjs'
 
@@ -20,7 +21,8 @@ export async function createUser({
   if (!email) {
     throw new Error('Email is required')
   }
-const hashedPassword = await bcrypt.hash(password, 5)
+
+  const hashedPassword = await bcrypt.hash(password, 5)
   try {
     const user = await prisma.user.create({
       data: {
@@ -63,18 +65,18 @@ export async function getUsers() {
         createdAt: true,
       },
       orderBy: {
-        createdAt: 'desc'
-      }
-    });
-    
-    return users;
+        createdAt: 'desc',
+      },
+    })
+
+    return users
   } catch (error) {
-    console.error('Error fetching users:', error);
-    throw new Error('Failed to fetch users');
+    console.error('Error fetching users:', error)
+    throw new Error('Failed to fetch users')
   }
 }
 
-export async function deleteUser(id:string) {
+export async function deleteUser(id: string) {
   try {
     await prisma.user.delete({
       where: { id },
@@ -121,18 +123,67 @@ export async function createRecipe({
   }
 }
 
-export async function  getRecipes() {
-  try{
+export async function getRecipes() {
+  try {
     const recipes = await prisma.recipe.findMany({
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: 'desc',
+      },
     })
     return recipes
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Error fetching recipes:', error)
     throw new Error('Failed to fetch recipes')
   }
 }
 
+export async function deleteRecipe(id: string) {
+  try {
+    await prisma.recipe.delete({
+      where: { id },
+    })
+    revalidatePath('/admin')
+  } catch (error) {
+    console.error('Error deleting recipe:', error)
+    throw new Error('Failed to delete recipe')
+  }
+}
+
+export async function updateRecipe(
+  id: string,
+  {
+    name,
+    image,
+    price,
+    ingredients,
+  }: { name?: string; image?: string; price?: number; ingredients?: string }
+) {
+  // allow partial updates; only validate when name is provided but empty string
+  if (name !== undefined && name === '') {
+    throw new Error('Name is required')
+  }
+
+  try {
+    // Build data object only with provided fields to avoid overwriting with undefined
+  const data: Prisma.RecipeUpdateInput = {}
+
+    if (name !== undefined) data.name = name
+    if (image !== undefined) data.image = image ?? null
+    if (price !== undefined && price !== null) data.price = Number(price)
+  if (ingredients !== undefined) data.ingredients = ingredients
+
+    const recipe = await prisma.recipe.update({
+      where: { id },
+      data,
+    })
+
+    // Revalidate the menu and admin pages so updated recipe appears
+    revalidatePath('/menu')
+    revalidatePath('/admin')
+
+    return recipe
+  } catch (error) {
+    console.error('Error updating recipe:', error)
+    throw new Error('Failed to update recipe')
+  }
+}

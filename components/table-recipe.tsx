@@ -9,6 +9,8 @@ import {
 import Image from "next/image"
 import { Recipe } from '@/types/type-recipe'
 import { Button } from "./ui/button"
+import ButtonDeleteRecipe from "./buton-delete-recipe"
+import Link from "next/link"
 
 const TableRecipe = ({recipes}:{recipes:Recipe[]}) => {
   return (
@@ -35,8 +37,13 @@ const TableRecipe = ({recipes}:{recipes:Recipe[]}) => {
       }</TableCell>
       <TableCell className="">{recipe.name} </TableCell>
       <TableCell className="">{recipe.price}</TableCell>
-      <TableCell className="">{recipe.ingredients}</TableCell>
-      <TableCell className=""><Button variant={'secondary'}>Edit</Button></TableCell>
+      <TableCell className="">{recipe.ingredients.slice(0,30)}...</TableCell>
+      <TableCell className="flex items-center gap-2">
+        <Button asChild variant={'secondary'}>
+          <Link href={`/edit-recipe/${recipe.id}`}>Edit</Link>
+          </Button>
+        <ButtonDeleteRecipe id={recipe.id}  />
+        </TableCell>
     </TableRow>
     )}
   </TableBody>
