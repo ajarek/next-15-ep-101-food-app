@@ -16,15 +16,14 @@ const menuItems = [
   { name: 'Menu', href: '/menu' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
-  
 ]
 
 const HeroHeader = () => {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
   const { items, removeAll } = useCartStore()
-  
+
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
@@ -68,27 +67,15 @@ const HeroHeader = () => {
 
             <section className='absolute inset-0 m-auto hidden size-fit lg:block'>
               <div className='flex items-center gap-8 text-sm'>
-                {menuItems                
-                .map((item) => (
-                 
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className='text-lg text-muted-foreground hover:text-muted-foreground/80 block duration-150'
-                    >
-                      <span>{item.name}</span>
-                    </Link>
-                  
+                {menuItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className='text-lg text-muted-foreground hover:text-muted-foreground/80 block duration-150'
+                  >
+                    <span>{item.name}</span>
+                  </Link>
                 ))}
-                { session?.user?.email === 'ajarek@wp.pl' &&
-                <Link
-                     
-                      href={'/admin'}
-                      className='text-lg text-muted-foreground hover:text-muted-foreground/80 block duration-150'
-                    >
-                      <span>{'Admin'}</span>
-                    </Link>
-                }
               </div>
             </section>
 
@@ -110,57 +97,81 @@ const HeroHeader = () => {
               <div className='flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit'>
                 {session?.user ? (
                   <div className='flex items-center gap-4'>
-                   <Image src={(session?.user as any)?.img || 'https://github.com/shadcn.png'} alt={'user image'} width={40} height={40}  className='rounded-full'/>
-                   <Button
-                    onClick={() => {
-                      signOut()
-                      removeAll()
-                    }}
-                    variant='destructive'
-                  >
-                    Sign Out
-                  </Button>
+                    <Image
+                      src={
+                        (session?.user as any)?.img ||
+                        'https://github.com/shadcn.png'
+                      }
+                      alt={'user image'}
+                      width={40}
+                      height={40}
+                      className='rounded-full'
+                    />
+                    <Button
+                      onClick={() => {
+                        signOut()
+                        removeAll()
+                      }}
+                      variant='destructive'
+                    >
+                      Sign Out
+                    </Button>
+                    {session?.user?.email === 'ajarek@wp.pl' && (
+                      <Link
+                        href={'/admin'}
+                        className='text-lg text-muted-foreground hover:text-muted-foreground/80 duration-150'
+                      >
+                        <span>{'Admin'}</span>
+                      </Link>
+                    )}
                   </div>
                 ) : (
                   <>
-                <Button
-                  asChild
-                  variant='outline'
-                  size='sm'
-                  className={cn(isScrolled && 'lg:hidden')}
-                >
-                  <Link href='/login'>
-                    <span className='text-muted-foreground hover:text-muted-foreground/80 block duration-150'>
-                      Login
-                    </span>
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size='sm'
-                  className={cn(isScrolled && 'lg:hidden')}
-                >
-                  <Link href='/signup'>
-                    <span>Sign Up</span>
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size='sm'
-                  className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}
-                >
-                  <Link href='menu'>
-                    <span>Get Started</span>
-                  </Link>
-                </Button>
-                </>
+                    <Button
+                      asChild
+                      variant='outline'
+                      size='sm'
+                      className={cn(isScrolled && 'lg:hidden')}
+                    >
+                      <Link href='/login'>
+                        <span className='text-muted-foreground hover:text-muted-foreground/80 block duration-150'>
+                          Login
+                        </span>
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      size='sm'
+                      className={cn(isScrolled && 'lg:hidden')}
+                    >
+                      <Link href='/signup'>
+                        <span>Sign Up</span>
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      size='sm'
+                      className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}
+                    >
+                      <Link href='menu'>
+                        <span>Get Started</span>
+                      </Link>
+                    </Button>
+                  </>
                 )}
-                  
               </div>
-              <Link href='/cart' className='relative flex items-center'>
+              <Link
+                href='/cart'
+                className='w-fit relative flex items-center'
+              >
                 <ShoppingCart />
                 <span className='absolute -top-1 -right-1 rounded-full bg-red-500 px-1 text-xs text-white'>
-                  {items.reduce((acc, item) => acc + (typeof item.quantity === 'number' ? item.quantity : 1), 0)}
+                  {items.reduce(
+                    (acc, item) =>
+                      acc +
+                      (typeof item.quantity === 'number' ? item.quantity : 1),
+                    0
+                  )}
                 </span>
               </Link>
               <ModeToggle />

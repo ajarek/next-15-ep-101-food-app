@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import {  useCartStore } from '@/store/cartStore'
+import { useCartStore } from '@/store/cartStore'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -192,7 +192,12 @@ const Checkout = () => {
         <h1 className='text-3xl font-bold text-muted-foreground'>
           Your cart is empty
         </h1>
-        <Button onClick={() => router.push('/shop')} aria-label='Continue Shopping'>Continue Shopping</Button>
+        <Button
+          onClick={() => router.push('/shop')}
+          aria-label='Continue Shopping'
+        >
+          Continue Shopping
+        </Button>
       </div>
     )
   }
@@ -707,19 +712,16 @@ const Checkout = () => {
                         className='flex items-center gap-3 text-sm'
                       >
                         <Image
-                          src={item.image||''}
+                          src={item.image || ''}
                           alt={item.name}
                           width={40}
                           height={40}
                           className='rounded'
                         />
                         <div className='flex-1'>
-                          <p className='font-medium'>{item.name||''}</p>
-                          
+                          <p className='font-medium'>{item.name || ''}</p>
                         </div>
-                        <p className='font-medium'>
-                          ${total().toFixed(2)}
-                        </p>
+                        <p className='font-medium'>${total().toFixed(2)}</p>
                       </div>
                     ))}
                   </div>
@@ -774,7 +776,7 @@ const Checkout = () => {
                   >
                     <div className='relative'>
                       <Image
-                        src={item.image||''}
+                        src={item.image || ''}
                         alt={item.name}
                         width={60}
                         height={60}
@@ -788,7 +790,6 @@ const Checkout = () => {
                       <p className='font-medium text-sm truncate'>
                         {item.name}
                       </p>
-                      
                     </div>
                     <p className='font-medium text-sm'>
                       ${item.price * (item.quantity ?? 1)}
@@ -852,7 +853,8 @@ const Checkout = () => {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
-                  })} within 2 hours.
+                  })}{' '}
+                  within 2 hours.
                 </p>
               </div>
             </CardContent>

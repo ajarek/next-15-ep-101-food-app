@@ -68,7 +68,9 @@ export default function ContactForm() {
           <Mail className='mr-2 h-6 w-6' /> Contact
         </h1>
         {isSubmitted ? (
-          <div className={` flex flex-col items-center justify-center space-y-4`}>
+          <div
+            className={` flex flex-col items-center justify-center space-y-4`}
+          >
             <Check className='h-12 w-12 text-green-500' />
             <p className='text-lg text-center font-semibold capitalize'>
               {name} Thank you for your message!
@@ -127,7 +129,8 @@ export default function ContactForm() {
                 htmlFor='message'
                 className='flex items-center text-xl'
               >
-               <MessageSquareText className='mr-2 h-4 w-4' />Message
+                <MessageSquareText className='mr-2 h-4 w-4' />
+                Message
               </Label>
               <Textarea
                 id='message'
@@ -142,7 +145,12 @@ export default function ContactForm() {
               )}
             </div>
             <div className='flex justify-end'>
-              <Button type='submit'className='w-full cursor-pointer'>📩 Send</Button>
+              <Button
+                type='submit'
+                className='w-full cursor-pointer'
+              >
+                📩 Send
+              </Button>
             </div>
           </form>
         )}

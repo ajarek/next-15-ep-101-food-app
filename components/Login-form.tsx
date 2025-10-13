@@ -17,7 +17,6 @@ import {
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 
-
 const formSchema = z.object({
   email: z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
     message: 'Email must be valid.',
@@ -36,7 +35,6 @@ const LoginForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     await signIn('credentials', values)
-   
   }
   return (
     <Form {...form}>

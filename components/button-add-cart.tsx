@@ -13,8 +13,7 @@ const ButtonAddCart = ({
   image,
   ingredients,
   price,
-  quantity
-  
+  quantity,
 }: Recipe) => {
   const router = useRouter()
   const { addItemToCart, items } = useCartStore()
@@ -39,9 +38,10 @@ const ButtonAddCart = ({
       }}
       aria-label='Add to cart'
       className='flex items-center gap-2 cursor-pointer '
-      
-    > <Plus/>
-      Add  cart
+    >
+      {' '}
+      <Plus />
+      Add cart
     </Button>
   )
 }

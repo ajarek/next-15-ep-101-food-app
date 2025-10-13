@@ -15,20 +15,18 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
-import { toast } from "sonner";
+import { toast } from 'sonner'
 
 const formSchema = z.object({
-  
   name: z.string().min(1, 'Name is required'),
   image: z.string().min(1, 'Image is required'),
   price: z.coerce.number().min(0, 'Price must be a positive number'),
   ingredients: z.string().min(1, 'Ingredients are required'),
- 
 })
 
-type RecipeFormValues = z.infer<typeof formSchema>;
+type RecipeFormValues = z.infer<typeof formSchema>
 
 const RecipeForm = () => {
   const form = useForm<RecipeFormValues>({
@@ -36,24 +34,25 @@ const RecipeForm = () => {
     // cast to Resolver<RecipeFormValues> so the control and submit handler types align
     resolver: zodResolver(formSchema) as unknown as Resolver<RecipeFormValues>,
     defaultValues: {
-     name: '',
+      name: '',
       image: '',
       price: 0,
-     ingredients: ''
-      
+      ingredients: '',
     },
-  });
+  })
 
-  const onSubmit: (values: RecipeFormValues) => Promise<void> = async (values) => {
+  const onSubmit: (values: RecipeFormValues) => Promise<void> = async (
+    values
+  ) => {
     try {
-      await createRecipe(values);
-      toast.success('Recipe created successfully');
-      form.reset();
+      await createRecipe(values)
+      toast.success('Recipe created successfully')
+      form.reset()
     } catch (err) {
-      console.error('createRecipe error', err);
-      toast.error('Failed to create recipe');
+      console.error('createRecipe error', err)
+      toast.error('Failed to create recipe')
     }
-  };
+  }
 
   return (
     <Form {...form}>
@@ -61,7 +60,7 @@ const RecipeForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='w-full max-w-xl space-y-4 border-2 shadow-xl gap-4 p-4 rounded-xl mt-4'
       >
-         <h1 className='text-2xl text-center font-bold'>Add Recipe</h1>
+        <h1 className='text-2xl text-center font-bold'>Add Recipe</h1>
         <FormField
           control={form.control}
           name='name'
@@ -80,7 +79,7 @@ const RecipeForm = () => {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name='image'
@@ -122,11 +121,10 @@ const RecipeForm = () => {
           name='ingredients'
           render={({ field }) => (
             <FormItem>
-              
               <FormControl>
                 <Textarea
-                  placeholder="List the ingredients of the dish"
-                  className="resize-none"
+                  placeholder='List the ingredients of the dish'
+                  className='resize-none'
                   {...field}
                 />
               </FormControl>
@@ -143,7 +141,6 @@ const RecipeForm = () => {
           {form.formState.isSubmitting ? 'Adding...' : 'Add Recipe'}
         </Button>
       </form>
-     
     </Form>
   )
 }

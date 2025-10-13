@@ -1,53 +1,56 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import  HeroHeader from "@/components/header";
-import  ThemeProvider  from "@/components/theme-provider";
-import FooterSection from "@/components/footer";
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import './globals.css'
+import HeroHeader from '@/components/header'
+import ThemeProvider from '@/components/theme-provider'
+import FooterSection from '@/components/footer'
 import { Toaster } from '@/components/ui/sonner'
 import ProvidersSession from '@/components/providers-session'
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+})
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
-  title: "Food App",
-  description: "A delicious food app",
-};
+  title: 'Food App',
+  description: 'A delicious food app',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang='en'
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-             <ProvidersSession>
-        <HeroHeader/>
-        <main className=' min-h-[calc(100vh-64px)] max-w-7xl mx-auto px-6 lg:px-12 pt-16  '>
-          {children}
-        </main>
-        <FooterSection/>
-        <Toaster position="top-right" />
-        </ProvidersSession>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='dark'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ProvidersSession>
+            <HeroHeader />
+            <main className=' min-h-[calc(100vh-64px)] max-w-7xl mx-auto px-6 lg:px-12 pt-16  '>
+              {children}
+            </main>
+            <FooterSection />
+            <Toaster position='top-right' />
+          </ProvidersSession>
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
