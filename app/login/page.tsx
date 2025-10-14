@@ -1,4 +1,4 @@
-import LoginForm from '@/components/login-form'
+import LoginForm from '@/components/Login-form'
 import SignInGithub from '@/components/sign-in-github'
 import { auth } from '@/app/api/auth/auth'
 import { redirect } from 'next/navigation'
